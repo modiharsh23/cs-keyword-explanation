@@ -1,5 +1,7 @@
 # CS Keyword Explainer ✦
 
+**Live Demo:** [https://cs-keyword-explanation.onrender.com](https://cs-keyword-explanation.onrender.com)
+
 A sleek, dark-themed web application that explains any **computer science topic** in a structured format — powered by **Google Gemini AI**.
 
 Type a keyword like *"Virtualization"*, *"Docker"*, or *"TCP/IP"* and instantly get:
