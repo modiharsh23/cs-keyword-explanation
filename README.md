@@ -1,22 +1,38 @@
-# AI Chatbot
+# CS Keyword Explainer ✦
 
-A sleek Flask-based AI chatbot that proxies messages to any OpenAI-compatible LLM provider.
+A sleek, dark-themed web application that explains any **computer science topic** in a structured format — powered by **Google Gemini AI**.
 
-## Quick start
+Type a keyword like *"Virtualization"*, *"Docker"*, or *"TCP/IP"* and instantly get:
+- A **concise explanation** of the topic
+- **Key concepts** you must know
+- **Best written resources** with links
+- **Recommended video links** (YouTube search)
+- **Suggested tutorials & courses**
+
+## Screenshot
+
+> The app features a modern dark UI with a centered search box, two-column result layout (explanation + resources), and a collapsible search history sidebar.
+
+## Quick Start
 
 ```bash
-# 1. Create a virtual environment
+# 1. Clone the repository
+git clone https://github.com/modiharsh23/cs-keyword-explanation.git
+cd cs-keyword-explanation
+
+# 2. Create a virtual environment
 python -m venv venv
 source venv/bin/activate        # macOS / Linux
 # venv\Scripts\activate         # Windows
 
-# 2. Install dependencies
+# 3. Install dependencies
 pip install -r requirements.txt
 
-# 3. Configure your LLM provider
-#    Edit .env and set your real API key and URL
+# 4. Add your Gemini API key
+#    Edit .env and set GEMINI_API_KEY
+#    Get a key at https://aistudio.google.com/apikey
 
-# 4. Run the app
+# 5. Run the app
 python app.py
 ```
 
@@ -26,24 +42,39 @@ Then open **http://127.0.0.1:5000** in your browser.
 
 Edit the `.env` file:
 
-| Variable      | Description                          | Example                                       |
-|---------------|--------------------------------------|-----------------------------------------------|
-| `LLM_API_KEY` | Your LLM provider API key           | `sk-abc123...`                                |
-| `LLM_API_URL` | LLM chat completions endpoint       | `https://api.openai.com/v1/chat/completions`  |
-| `LLM_MODEL`   | Model name (defaults to gpt-3.5-turbo) | `gpt-4`, `llama3-70b-8192`                 |
+| Variable         | Description                        | Default              |
+|------------------|------------------------------------|----------------------|
+| `GEMINI_API_KEY` | Your Google Gemini API key (required) | —               |
+| `GEMINI_MODEL`   | Gemini model to use                | `gemini-2.0-flash`   |
 
-Works with **OpenAI**, **Groq**, **Together AI**, **Anyscale**, and any OpenAI-compatible provider.
+Get your free API key at [aistudio.google.com/apikey](https://aistudio.google.com/apikey).
 
-## Project structure
+## Tech Stack
+
+- **Backend:** Flask + Google Gemini API (`google-genai` SDK)
+- **Frontend:** Vanilla HTML, CSS, JavaScript
+- **Markdown Rendering:** [marked.js](https://marked.js.org/) + [DOMPurify](https://github.com/cure53/DOMPurify)
+- **Storage:** Browser `localStorage` for search history
+
+## Features
+
+- 🔍 **Instant topic search** — type any CS keyword and get a structured explanation
+- 📚 **Resource sidebar** — written resources, videos, and tutorials in a right panel
+- 🕒 **Search history** — past searches saved locally, click to revisit, swipe to delete
+- 🎨 **Dark theme** — modern glassmorphism UI with gradient accents
+- 📱 **Responsive** — works on desktop and mobile
+- 🔒 **Secure** — API key stays server-side, markdown sanitized with DOMPurify
+
+## Project Structure
 
 ```
-ai-chatbot/
-├─ app.py              # Flask server
+cs-keyword-explanation/
+├─ app.py              # Flask server + Gemini API proxy
 ├─ templates/
-│  └─ index.html       # Chat UI
+│  └─ index.html       # UI (search, loading, result views)
 ├─ static/
-│  └─ app.js           # Frontend logic
-├─ .env                # Secrets (never commit)
+│  └─ app.js           # Frontend logic (search, history, rendering)
+├─ .env                # API key (never committed)
 ├─ .gitignore
 ├─ requirements.txt
 └─ README.md
@@ -51,6 +82,10 @@ ai-chatbot/
 
 ## Security
 
-- API key is **server-side only** — never exposed to the browser.
-- Input length is capped at 4 000 characters.
-- All user text is HTML-escaped before rendering.
+- API key is **server-side only** — never exposed to the browser
+- Input length is capped at 4,000 characters
+- Markdown output is sanitized with DOMPurify to prevent XSS
+
+## License
+
+MIT
